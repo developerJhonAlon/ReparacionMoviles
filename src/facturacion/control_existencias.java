@@ -4,6 +4,9 @@
  */
 package facturacion;
 
+import java.util.List;
+import sun.security.provider.certpath.BuildStep;
+
 /**
  *
  * @author ANDRES
@@ -57,9 +60,22 @@ public class control_existencias
      {
          
         this.Documento = cod;
-        return sen.existencias(cod, " from cliente where Documento='"+cod+"';");
+        return sen.existencias("Documento", " from cliente where Documento='"+cod+"';");
       
     }
+     
+     public boolean existe_mantenimiento( String cod)
+     {
+         
+        this.numero_factura = cod;
+        return sen.existencias("id_mantenimiento", " from mantenimiento where id_mantenimiento='"+cod+"';");
+      
+    }
+     
+     public boolean existe_usuario(String usuario, String password){
+         return sen.existencias("clave_user", " from usuario where nombre_user='"+usuario+"' and clave_user='"+password+"';");
+     }
+     
      public boolean existe_proveedor( String id_prov)
      {
         this.No_documento = id_prov;
@@ -100,6 +116,21 @@ public class control_existencias
         sen.insertar(datos, "insert into factura(Nnm_factura,cod_cliente,Nombre_empleado,fecha_facturacion, cod_formapago) values(?,?,?,?,?);");
     }
      
+    public boolean registrar_mantenimiento(String numMantenimiento, String nombreEmpleado, String fechaMante, String codFormaPago, String equipo, String falla, String observacion,
+            String precio, String estado){
+        String[] datos = {numMantenimiento, Documento, nombreEmpleado, fechaMante, codFormaPago, equipo, falla, observacion, precio, estado};
+        return sen.insertar(datos,
+                "insert into mantenimiento(id_mantenimiento,cod_cliente,nombre_empleado,fecha,cod_formapago,equipo,falla,observacion,precio,estado) values(?,?,?,?,?,?,?,?,?,?);");
+    }
+    
+    public boolean update_mantenimiento(String numMantenimiento, String nombreEmpleado, String fechaMante, String codFormaPago, String equipo, String falla, String observacion,
+            String precio, String estado){
+        String[] datos = {nombreEmpleado, fechaMante, codFormaPago, equipo, falla, observacion, precio, estado, numMantenimiento};
+        return sen.insertar(datos,
+                "update mantenimiento set nombre_empleado=?, fecha=?, cod_formapago=?, equipo=?, falla=?, observacion=?, precio=?, estado=? where id_mantenimiento=?;");
+    }
+    
+     
       public boolean update_factura(String factura, String total, String iva)
       {
           String campos[] = {total, iva,factura};           
@@ -115,9 +146,9 @@ public class control_existencias
       }
      
      
-     public Object[] combox(String tabla, String campo)
+     public List<OpcionGenerica> combox(String tabla, String[] campo)
      {
-        return sen.poblar_combox(tabla, campo, "select "+campo+" from "+tabla+";");
+        return sen.poblar_combox(tabla, campo, "select "+campo[0]+","+campo[1]+" from "+tabla+";");
      }
      
      public Object[][] datos_articulo(String id_articulo)
@@ -145,6 +176,24 @@ public class control_existencias
         String[] columnas={"Nnm_factura","Nombres","Apellidos","Nombre_empleado","Fecha_facturacion","Descripcion_formapago","total_factura","IVA"};
         Object[][] resultado = sen.GetTabla(columnas, "cliente", "select * from cliente, factura, forma_de_pago where documento=cod_cliente and cod_formapago=id_formapago and documento='"+id+"';");
         return resultado;
+       }
+      
+      
+      
+      public Object[][] consultaMantenimientoPorCliente(String id)
+       { 
+           
+            String[] columnas={"id_mantenimiento","Nombres","Apellidos","nombre_empleado","fecha","Descripcion_formapago","equipo","falla","observacion","precio","estado"};
+            Object[][] resultado = sen.GetTabla(columnas, "mantenimiento", "select * from cliente, mantenimiento, forma_de_pago where documento=cod_cliente and cod_formapago=id_formapago and documento='"+id+"';");
+            return resultado;
+       }
+      
+    public Object[][] consultaMantenimientoPorFactura()
+       { 
+          
+            String[] columnas={"id_mantenimiento","Nombres","Apellidos","nombre_empleado","fecha","Descripcion_formapago","equipo","falla","observacion","precio","estado"};
+            Object[][] resultado = sen.GetTabla(columnas, "mantenimiento", "select * from cliente, mantenimiento, forma_de_pago where Documento=cod_cliente and cod_formapago=id_formapago and id_mantenimiento='"+numero_factura+"';");
+            return resultado;
        }
       
        public boolean devolucion(String cod_detallefactura, String cod_detallearticulo, String Motivo, String fecha_devolucion, String cantidad)

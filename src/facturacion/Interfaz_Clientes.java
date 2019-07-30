@@ -1,6 +1,7 @@
 
 package facturacion;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
@@ -11,19 +12,20 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
         limpiar();
         bloquear_cajas();
         
-        Object[] tipo_doc = ctrl.combox("tipo_de_documento","id_tipo_documento");
+        String[] campos = {"id_tipo_documento","Descripcion"};             
+        List<OpcionGenerica> tipo_doc = ctrl.combox("tipo_de_documento",campos);
         combo_tipo.removeAllItems();
-        for(int i=0;i<tipo_doc.length;i++){
-        combo_tipo.addItem(tipo_doc[i]);
         
-    }
+        for (OpcionGenerica tipo_doc1 : tipo_doc) {
+            combo_tipo.addItem(tipo_doc1);
+        }
         
-        Object[] ciu = ctrl.combox("ciudad","Codigo_ciudad");
+        String[] campos1 = {"Codigo_ciudad","Nombre_ciudad"};   
+        List<OpcionGenerica> ciu = ctrl.combox("ciudad",campos1);
         ciudad_combo.removeAllItems();
-        for(int i=0;i<ciu.length;i++){
-        ciudad_combo.addItem(ciu[i]);
-        
-    }
+        for (OpcionGenerica ciu1 : ciu) {
+            ciudad_combo.addItem(ciu1);
+        }
     }
 
     
@@ -257,11 +259,13 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
         String doc,nom,ape,dir,ciu,tipo,tel; 
         
         doc = docclientejTextField1.getText();
-        tipo= combo_tipo.getSelectedItem().toString();
+        OpcionGenerica opcionTipo = (OpcionGenerica) combo_tipo.getSelectedItem();
+        tipo =  String.valueOf(opcionTipo.getId());
         nom = nomclientejTextField2.getText();
         ape = apellclientejTextField3.getText();
         dir = dirclientejTextField4.getText();        
-        ciu = ciudad_combo.getSelectedItem().toString();
+       OpcionGenerica opcionCiu = (OpcionGenerica) combo_tipo.getSelectedItem();
+        ciu =  String.valueOf(opcionCiu.getId());
         tel = telefonoclientjTextField1.getText();
         control_cliente contr = new control_cliente(doc, tipo, nom, ape, dir, ciu,tel);
         if(!doc.equals("") && !tipo.equals("") && !nom.equals("") && !ape.equals("") )

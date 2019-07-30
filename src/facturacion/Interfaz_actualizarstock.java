@@ -4,6 +4,7 @@
  */
 package facturacion;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,11 +20,12 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
         initComponents();
         nuevo_stock.setEnabled(false);
         desc_articulo.setEnabled(false);
-        Object[] idarticulo = ctrl.combox("articulo","id_articulo");
+        
+        String[] campos = {"id_articulo","descripcion"};
+        List<OpcionGenerica> idarticulo = ctrl.combox("articulo",campos);
         combo_articulo.removeAllItems();
-        for(int i=0;i<idarticulo.length;i++)
-        {
-        combo_articulo.addItem(idarticulo[i]);
+         for (OpcionGenerica idarticulo1 : idarticulo) {
+            combo_articulo.addItem(idarticulo1);
         }
     }
 
@@ -151,7 +153,8 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
     if(combo_articulo.getSelectedItem()!=null )
      {
             
-            Object[][] datos = ctrl.datos_articulo(combo_articulo.getSelectedItem().toString());
+            OpcionGenerica opcion = (OpcionGenerica) combo_articulo.getSelectedItem();
+            Object[][] datos = ctrl.datos_articulo(String.valueOf(opcion.getId()));
             desc_articulo.setText(datos[0][0].toString());
             nuevo_stock.setText(datos[0][2].toString());    
            
@@ -163,12 +166,13 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
     if(!registrar_nuevo.getText().equals("0") && !registrar_nuevo.getText().equals(""))
         {
             
-            
-            if( ctrl.update_stock(registrar_nuevo.getText(),combo_articulo.getSelectedItem().toString()))
+            OpcionGenerica opcion = (OpcionGenerica) combo_articulo.getSelectedItem();
+            String op = String.valueOf(opcion.getId());
+            if( ctrl.update_stock(registrar_nuevo.getText(),op))
             {
                 JOptionPane.showMessageDialog(this, "Se actualizo correctamente el stock");
                 registrar_nuevo.setText("0");     
-                Object[][] datos = ctrl.datos_articulo(combo_articulo.getSelectedItem().toString());
+                Object[][] datos = ctrl.datos_articulo(op);
                 nuevo_stock.setText(datos[0][2].toString()); 
                 
             }

@@ -2,10 +2,11 @@
 package facturacion;
 
 import com.sun.crypto.provider.RSACipher;
-import java.awt.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +40,7 @@ public class Sentencias_sql {
        return estado;
    }
     
+   
      public Object [][] GetTabla(String colName[], String tabla, String sql){
       int registros = 0;
       
@@ -109,33 +111,30 @@ public class Sentencias_sql {
     return datos;
     }
      
-     public Object[] poblar_combox(String tabla, String nombrecol, String sql){
-      int registros = 0;      
-      try{
-         ps = con.conectado().prepareStatement("SELECT count(*) as total FROM " + tabla);
-         res = ps.executeQuery();
-         res.next();
-         registros = res.getInt("total");
-         res.close();
-      }catch(SQLException e){
-         System.out.println(e);
-      }
-
-    Object[] datos = new Object[registros];
-      try{
-         ps = con.conectado().prepareStatement(sql);
-         res = ps.executeQuery();
-         int i = 0;
-         while(res.next()){
-            datos[i] = res.getObject(nombrecol);
-            i++;
-         }
-         res.close();
-          }catch(SQLException e){
-         System.out.println(e);
+    public List<OpcionGenerica> poblar_combox(String tabla,String[] campo, String sql){
+        int registros = 0;   
+        List<OpcionGenerica> opciones = new ArrayList<>();
+        try{
+            ps = con.conectado().prepareStatement("SELECT count(*) as total FROM " + tabla);
+            res = ps.executeQuery();
+            res.next();
+            registros = res.getInt("total");
+            res.close();
+            //
+            ps = con.conectado().prepareStatement(sql);
+            res = ps.executeQuery();
+            while(res.next()){
+                OpcionGenerica opcion = new OpcionGenerica();
+                opcion.setId(res.getInt(campo[0]));
+                opcion.setDescripcion(res.getString(campo[1]));
+                opciones.add(opcion);
+            }
+       
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return opciones; 
     }
-    return datos;
- }
      
      public Double datos_totalfactura(String campo, String sql){
     double data =0;

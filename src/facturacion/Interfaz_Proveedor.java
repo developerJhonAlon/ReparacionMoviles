@@ -4,6 +4,7 @@
  */
 package facturacion;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,16 +21,18 @@ control_existencias cc = new control_existencias();
         limpiar();
         bloquear_cajas();
         
-        Object[] tipo_doc = cc.combox("tipo_de_documento","id_tipo_documento");
+        String[] campos = {"id_tipo_documento","Descripcion"};
+        List<OpcionGenerica> tipo_doc = cc.combox("tipo_de_documento",campos);
         combo_tipo.removeAllItems();
-        for(int i=0;i<tipo_doc.length;i++){
-        combo_tipo.addItem(tipo_doc[i]);
+        for (OpcionGenerica tipo_doc1 : tipo_doc) {
+            combo_tipo.addItem(tipo_doc1);
         }
         
-        Object[] ciudad = cc.combox("ciudad","codigo_ciudad");
+        String[] campos1 = {"Codigo_ciudad","Nombre_ciudad"};
+        List<OpcionGenerica> ciudad = cc.combox("ciudad",campos1);
         ciudad_combo.removeAllItems();
-        for(int i=0;i<ciudad.length;i++){
-        ciudad_combo.addItem(ciudad[i]);
+         for (OpcionGenerica ciudad1 : ciudad) {
+            ciudad_combo.addItem(ciudad1);
         }
     }
 
@@ -606,12 +609,14 @@ public void limpiar()
     String docu,nom,ape, nom_com,dir,ciu,tipo,tel,a; 
         
         docu = documentoproveedorjTextField9.getText();
-        tipo = combo_tipo.getSelectedItem().toString();
+        OpcionGenerica opcion = (OpcionGenerica)combo_tipo.getSelectedItem();
+        tipo = String.valueOf(opcion.getId());
         nom_com = nomcomercialjTextField10.getText();
         nom = nomproveedorjTextField9.getText();
         ape = apellproveedorjTextField9.getText(); 
         dir = dirproveedorjTextField9.getText();
-        ciu = ciudad_combo.getSelectedItem().toString();
+        OpcionGenerica opcion1 = (OpcionGenerica)ciudad_combo.getSelectedItem();
+        ciu =  String.valueOf(opcion1.getId());
         tel = telefonoprovjTextField9.getText();
         
         control_proveedor prov = new control_proveedor(docu, tipo, nom, ape,nom_com, dir, ciu, tel);

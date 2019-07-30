@@ -7,6 +7,7 @@ package facturacion;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import sun.util.calendar.BaseCalendar;
 
@@ -25,18 +26,19 @@ control_existencias con = new control_existencias();
         bloquear_cajas();
         this.calendario.setEnabled(false);
         
-        Object[] tipo = con.combox("tipo_articulo","id_tipoarticulo");
+        String[] campos = {"id_tipoarticulo","descripcion_articulo"};
+        List<OpcionGenerica> tipo = con.combox("tipo_articulo",campos);
         combotipo.removeAllItems();
-        for(int i=0;i<tipo.length;i++){
-        combotipo.addItem(tipo[i]);
+        for (OpcionGenerica tipo1 : tipo) {
+            combotipo.addItem(tipo1);
+        }
         
-    }
-        Object[] prov = con.combox("proveedor","No_documento");
+        String[] campos1 = {"cod_tipo_documento","No_documento"};
+        List<OpcionGenerica> prov = con.combox("proveedor",campos1);
         comboproveedor.removeAllItems();
-        for(int i=0;i<prov.length;i++){
-        comboproveedor.addItem(prov[i]);
-        
-    }
+        for (OpcionGenerica prov1 : prov) {
+            comboproveedor.addItem(prov1);
+        }
     }
 
     /**
@@ -345,12 +347,15 @@ public void limpiar()
         String des, tipo,prov,fecha;       
         int preve, precos,sto;
         des = descripcion_prod.getText();
-        tipo = combotipo.getSelectedItem().toString();
+        OpcionGenerica opcion = (OpcionGenerica) combotipo.getSelectedItem();
+        tipo = String.valueOf(opcion.getId());
         fecha = convertTostring(calendario.getDate());
         preve = Integer.parseInt(pre_venta.getText());
         precos = Integer.parseInt(pre_costo.getText());
         sto = Integer.parseInt(cant_prod.getText());
-        prov = comboproveedor.getSelectedItem().toString();
+        OpcionGenerica opcion1 = (OpcionGenerica) comboproveedor.getSelectedItem();
+        
+        prov = opcion1.getDescripcion();
         
         control_articulos ctrl = new control_articulos();
         if(!des.equals(""))

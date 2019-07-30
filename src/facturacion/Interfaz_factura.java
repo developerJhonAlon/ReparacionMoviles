@@ -7,6 +7,7 @@ package facturacion;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -52,17 +53,18 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
         Date hoy = new Date();
         fecha_fact.setText( hoy.getDate()+"/"+(hoy.getMonth()+1) +"/"+(hoy.getYear()+1900) );
         
-        Object[] idarticulo = con.combox("articulo","id_articulo");
-        combo_articulos.removeAllItems();
-        for(int i=0;i<idarticulo.length;i++)
-        {
-        combo_articulos.addItem(idarticulo[i]);
+        String[] campos = {"id_articulo","descripcion"};
+        List<OpcionGenerica> idarticulo = con.combox("articulo",campos);
+        combo_articulos.removeAllItems();  
+        for (OpcionGenerica idarticulo1 : idarticulo) {
+            combo_articulos.addItem(idarticulo1);
         }
-        Object[] formapago = con.combox("forma_de_pago","id_formapago");
+        
+        String[] campos1 = {"id_formapago","Descripcion_formapago"};
+        List<OpcionGenerica> formapago = con.combox("forma_de_pago",campos1);
         combo_formapago.removeAllItems();
-        for(int i=0;i<formapago.length;i++)
-        {
-        combo_formapago.addItem(formapago[i]);
+        for (OpcionGenerica formapago1 : formapago) {
+            combo_formapago.addItem(formapago1);
         }
     }
 
@@ -386,7 +388,10 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void reg_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_facturaActionPerformed
-    con.registrar_factura(num_factura.getText(),vend_fact.getText(),fecha_fact.getText(),combo_formapago.getSelectedItem().toString());
+   
+        OpcionGenerica tipoPago = (OpcionGenerica) combo_formapago.getSelectedItem();
+        
+        con.registrar_factura(num_factura.getText(),vend_fact.getText(),fecha_fact.getText(),String.valueOf(tipoPago.getId()));
         cant_art.setEnabled(true);
         iva_art.setEnabled(true);
         desc_art.setEnabled(true);
@@ -401,20 +406,21 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_reg_facturaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void combo_articulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_articulosActionPerformed
      if(combo_articulos.getSelectedItem()!=null )
      {
             
-            Object[][] datos = con.datos_articulo(combo_articulos.getSelectedItem().toString());
-            articulo_venta.setText(datos[0][0].toString());
-            preciu_unid.setText(datos[0][1].toString());
-            stock_art.setText(datos[0][2].toString());
-            cant_art.setText("0");
-            Total_art.setText("0");
-            desc_art.setText("0");
+        OpcionGenerica opcion = (OpcionGenerica)combo_articulos.getSelectedItem();
+        Object[][] datos = con.datos_articulo(String.valueOf(opcion.getId()));
+        articulo_venta.setText(datos[0][0].toString());
+        preciu_unid.setText(datos[0][1].toString());
+        stock_art.setText(datos[0][2].toString());
+        cant_art.setText("0");
+        Total_art.setText("0");
+        desc_art.setText("0");
             
            
         
@@ -457,18 +463,18 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
         {
             if (c > b)
             {            
-            
-            if( con.registrar_producto(num_factura.getText(),combo_articulos.getSelectedItem().toString(),cant_art.getText(),Total_art.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "El articulo se registro con exito");
-                cant_art.setText("0");
-                Total_art.setText("0");                
-                desc_art.setText("");
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Error al registrar el articulo");
-            }
+                OpcionGenerica articulo = (OpcionGenerica)combo_articulos.getSelectedItem();
+                if( con.registrar_producto(num_factura.getText(),String.valueOf(articulo.getId()) ,cant_art.getText(),Total_art.getText()))
+                {
+                    JOptionPane.showMessageDialog(this, "El articulo se registro con exito");
+                    cant_art.setText("0");
+                    Total_art.setText("0");                
+                    desc_art.setText("");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Error al registrar el articulo");
+                }
             }
             else
             {
