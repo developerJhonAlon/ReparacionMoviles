@@ -64,6 +64,7 @@ public class interfaz_consultas extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setText("Ingrese numero de documento del cliente");

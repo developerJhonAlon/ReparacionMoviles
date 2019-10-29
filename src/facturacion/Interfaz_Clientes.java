@@ -1,4 +1,3 @@
-
 package facturacion;
 
 import java.util.List;
@@ -7,28 +6,28 @@ import javax.swing.JOptionPane;
 public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
 
     control_existencias ctrl = new control_existencias();
+
     public Interfaz_Clientes() {
-        initComponents();    
+        initComponents();
         limpiar();
         bloquear_cajas();
-        
-        String[] campos = {"id_tipo_documento","Descripcion"};             
-        List<OpcionGenerica> tipo_doc = ctrl.combox("tipo_de_documento",campos);
+
+        String[] campos = {"id_tipo_documento", "Descripcion"};
+        List<OpcionGenerica> tipo_doc = ctrl.combox("tipo_de_documento", campos);
         combo_tipo.removeAllItems();
-        
+
         for (OpcionGenerica tipo_doc1 : tipo_doc) {
             combo_tipo.addItem(tipo_doc1);
         }
-        
-        String[] campos1 = {"Codigo_ciudad","Nombre_ciudad"};   
-        List<OpcionGenerica> ciu = ctrl.combox("ciudad",campos1);
+
+        String[] campos1 = {"Codigo_ciudad", "Nombre_ciudad"};
+        List<OpcionGenerica> ciu = ctrl.combox("ciudad", campos1);
         ciudad_combo.removeAllItems();
         for (OpcionGenerica ciu1 : ciu) {
             ciudad_combo.addItem(ciu1);
         }
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -215,113 +214,152 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void limpiar()
-    {
-       docclientejTextField1.setText("");
-       combo_tipo.setName("");
-       nomclientejTextField2.setText("");
-       apellclientejTextField3.setText("");
-       dirclientejTextField4.setText("");
-        
+    public void limpiar() {
+        docclientejTextField1.setText("");
+        combo_tipo.setName("");
+        nomclientejTextField2.setText("");
+        apellclientejTextField3.setText("");
+        dirclientejTextField4.setText("");
+
     }
-    
-    public void  bloquear_cajas()
-    {
-       docclientejTextField1.setEnabled(false);
-       combo_tipo.setEnabled(false);
-       nomclientejTextField2.setEnabled(false);
-       apellclientejTextField3.setEnabled(false);
-       dirclientejTextField4.setEnabled(false);       
-       ciudad_combo.setEnabled(false); 
-       nuevojButton1.setEnabled(true);
-       regclientejButton1.setEnabled(false);
-       cancelclijButton2.setEnabled(false);
-       telefonoclientjTextField1.setEnabled(false);
-       
+
+    public void bloquear_cajas() {
+        docclientejTextField1.setEnabled(false);
+        combo_tipo.setEnabled(false);
+        nomclientejTextField2.setEnabled(false);
+        apellclientejTextField3.setEnabled(false);
+        dirclientejTextField4.setEnabled(false);
+        ciudad_combo.setEnabled(false);
+        nuevojButton1.setEnabled(true);
+        regclientejButton1.setEnabled(false);
+        cancelclijButton2.setEnabled(false);
+        telefonoclientjTextField1.setEnabled(false);
+
     }
-    public void  desbloquear()
-    {
-       docclientejTextField1.setEnabled(true);
-       combo_tipo.setEnabled(true);
-       nomclientejTextField2.setEnabled(true);
-       apellclientejTextField3.setEnabled(true);
-       dirclientejTextField4.setEnabled(true);       
-       ciudad_combo.setEnabled(true); 
-       telefonoclientjTextField1.setEnabled(true);
-       nuevojButton1.setEnabled(false);
-       regclientejButton1.setEnabled(true);
-       cancelclijButton2.setEnabled(true);
-       
+
+    public void desbloquear() {
+        docclientejTextField1.setEnabled(true);
+        combo_tipo.setEnabled(true);
+        nomclientejTextField2.setEnabled(true);
+        apellclientejTextField3.setEnabled(true);
+        dirclientejTextField4.setEnabled(true);
+        ciudad_combo.setEnabled(true);
+        telefonoclientjTextField1.setEnabled(true);
+        nuevojButton1.setEnabled(false);
+        regclientejButton1.setEnabled(true);
+        cancelclijButton2.setEnabled(true);
+
     }
-    
+
     private void regclientejButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regclientejButton1ActionPerformed
-       
-        String doc,nom,ape,dir,ciu,tipo,tel; 
-        
+
+        boolean cedulaCorrecta = false;
+        String doc, nom, ape, dir, ciu, tipo, tel;
+
         doc = docclientejTextField1.getText();
-        OpcionGenerica opcionTipo = (OpcionGenerica) combo_tipo.getSelectedItem();
-        tipo =  String.valueOf(opcionTipo.getId());
-        nom = nomclientejTextField2.getText();
-        ape = apellclientejTextField3.getText();
-        dir = dirclientejTextField4.getText();        
-       OpcionGenerica opcionCiu = (OpcionGenerica) combo_tipo.getSelectedItem();
-        ciu =  String.valueOf(opcionCiu.getId());
-        tel = telefonoclientjTextField1.getText();
-        control_cliente contr = new control_cliente(doc, tipo, nom, ape, dir, ciu,tel);
-        if(!doc.equals("") && !tipo.equals("") && !nom.equals("") && !ape.equals("") )
-        {
-        if(contr.ingresar_cliente())
-        {
-        JOptionPane.showMessageDialog(null,"El cliente se registro con exito ","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-        limpiar();
-        bloquear_cajas();
+        cedulaCorrecta = valida(doc);
+
+        if (cedulaCorrecta) {
+            OpcionGenerica opcionTipo = (OpcionGenerica) combo_tipo.getSelectedItem();
+            tipo = String.valueOf(opcionTipo.getId());
+            nom = nomclientejTextField2.getText();
+            ape = apellclientejTextField3.getText();
+            dir = dirclientejTextField4.getText();
+            OpcionGenerica opcionCiu = (OpcionGenerica) combo_tipo.getSelectedItem();
+            ciu = String.valueOf(opcionCiu.getId());
+            tel = telefonoclientjTextField1.getText();
+            control_cliente contr = new control_cliente(doc, tipo, nom, ape, dir, ciu, tel);
+            if (!doc.equals("") && !tipo.equals("") && !nom.equals("") && !ape.equals("")) {
+                if (contr.ingresar_cliente()) {
+                    JOptionPane.showMessageDialog(null, "El cliente se registro con exito ", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    limpiar();
+                    bloquear_cajas();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ya existe un usuario con el mismo Documento", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Hay campos obligatorios");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        else
-        {
-        JOptionPane.showMessageDialog(this, "Error al registrar el cliente");
-        }
-        }
-        else
-        {
-          JOptionPane.showMessageDialog(this, "Hay campos obligatorios");  
-        }
-        
-       
-               
+
+
     }//GEN-LAST:event_regclientejButton1ActionPerformed
+
+    public static boolean valida(String x) {
+        int suma = 0;
+        if (x.length() == 9) {
+            System.out.println("Ingrese su cedula de 10 digitos");
+            return false;
+        } else {
+            int a[] = new int[x.length() / 2];
+            int b[] = new int[(x.length() / 2)];
+            int c = 0;
+            int d = 1;
+            for (int i = 0; i < x.length() / 2; i++) {
+                a[i] = Integer.parseInt(String.valueOf(x.charAt(c)));
+                c = c + 2;
+                if (i < (x.length() / 2) - 1) {
+                    b[i] = Integer.parseInt(String.valueOf(x.charAt(d)));
+                    d = d + 2;
+                }
+            }
+
+            for (int i = 0; i < a.length; i++) {
+                a[i] = a[i] * 2;
+                if (a[i] > 9) {
+                    a[i] = a[i] - 9;
+                }
+                suma = suma + a[i] + b[i];
+            }
+            int aux = suma / 10;
+            int dec = (aux + 1) * 10;
+            if ((dec - suma) == Integer.parseInt(String.valueOf(x.charAt(x.length() - 1)))) {
+                return true;
+            } else if (suma % 10 == 0 && x.charAt(x.length() - 1) == '0') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    }
+
 
     private void salirclijButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirclijButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_salirclijButton3ActionPerformed
 
     private void cancelclijButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelclijButton2ActionPerformed
-    bloquear_cajas();  
-    limpiar();
+        bloquear_cajas();
+        limpiar();
     }//GEN-LAST:event_cancelclijButton2ActionPerformed
 
     private void nuevojButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevojButton1ActionPerformed
-    desbloquear();
-    docclientejTextField1.requestFocus();
+        desbloquear();
+        docclientejTextField1.requestFocus();
     }//GEN-LAST:event_nuevojButton1ActionPerformed
 
     private void docclientejTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_docclientejTextField1ActionPerformed
-    docclientejTextField1.transferFocus();
+        docclientejTextField1.transferFocus();
     }//GEN-LAST:event_docclientejTextField1ActionPerformed
 
     private void nomclientejTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomclientejTextField2ActionPerformed
-    nomclientejTextField2.transferFocus();
+        nomclientejTextField2.transferFocus();
     }//GEN-LAST:event_nomclientejTextField2ActionPerformed
 
     private void apellclientejTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellclientejTextField3ActionPerformed
-    apellclientejTextField3.transferFocus();
+        apellclientejTextField3.transferFocus();
     }//GEN-LAST:event_apellclientejTextField3ActionPerformed
 
     private void dirclientejTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dirclientejTextField4ActionPerformed
-    dirclientejTextField4.transferFocus();
+        dirclientejTextField4.transferFocus();
     }//GEN-LAST:event_dirclientejTextField4ActionPerformed
 
     private void combo_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_tipoActionPerformed
-        
+
 
     }//GEN-LAST:event_combo_tipoActionPerformed
 

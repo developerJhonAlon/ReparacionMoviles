@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  * @author ANDRES
  */
 public class Interfaz_principal extends javax.swing.JFrame {
-control_existencias ctrl;
+    control_existencias ctrl;
     
     /**
      * Creates new form Interfaz_principal
@@ -51,6 +51,10 @@ control_existencias ctrl;
         jMenu7 = new javax.swing.JMenu();
         item_venta1 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        Buscararticulos1 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         item_venta2 = new javax.swing.JMenuItem();
 
@@ -229,6 +233,43 @@ control_existencias ctrl;
 
         jMenuBar1.add(jMenu7);
 
+        jMenu6.setBorder(new javax.swing.border.MatteBorder(null));
+        jMenu6.setText("Repuestos");
+        jMenu6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
+        jMenu6.setPreferredSize(new java.awt.Dimension(200, 50));
+
+        jMenuItem10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem10.setText("Registrar");
+        jMenuItem10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem10);
+
+        Buscararticulos1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Buscararticulos1.setText("Listado");
+        Buscararticulos1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Buscararticulos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Buscararticulos1ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(Buscararticulos1);
+
+        jMenuItem12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jMenuItem12.setText("Actualizar stock");
+        jMenuItem12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem12);
+
+        jMenuBar1.add(jMenu6);
+
         jMenu8.setBorder(new javax.swing.border.MatteBorder(null));
         jMenu8.setText("Reporte");
         jMenu8.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
@@ -257,7 +298,7 @@ control_existencias ctrl;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -307,6 +348,7 @@ control_existencias ctrl;
 
     private void item_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_item_ventaActionPerformed
        String venta = JOptionPane.showInputDialog(this,"Ingrese el documento del cliente: ",JOptionPane.OK_OPTION);
+       ctrl = new control_existencias();
        if(ctrl.existe_cliente(venta))
        {
         Interfaz_factura fact = new Interfaz_factura(ctrl);
@@ -386,6 +428,25 @@ control_existencias ctrl;
         reporte.show();
     }//GEN-LAST:event_item_venta2ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        Interfaz_repuesto art = new Interfaz_repuesto();
+        jDesktopPane1.add(art);
+        art.show();     
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void Buscararticulos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Buscararticulos1ActionPerformed
+        // TODO add your handling code here:
+        interfaz_buscarrepuesto art = new interfaz_buscarrepuesto();
+        jDesktopPane1.add(art);
+        art.show();    
+        
+    }//GEN-LAST:event_Buscararticulos1ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -422,6 +483,7 @@ control_existencias ctrl;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Buscararticulos;
+    private javax.swing.JMenuItem Buscararticulos1;
     private javax.swing.JMenuItem item_venta;
     private javax.swing.JMenuItem item_venta1;
     private javax.swing.JMenuItem item_venta2;
@@ -431,11 +493,14 @@ control_existencias ctrl;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

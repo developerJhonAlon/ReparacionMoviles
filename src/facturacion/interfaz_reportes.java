@@ -68,6 +68,8 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
             }
         });
 
+        jScrollPane1.setEnabled(false);
+
         tablaReporte.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         tablaReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,6 +82,7 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
 
             }
         ));
+        tablaReporte.setEnabled(false);
         tablaReporte.setName(""); // NOI18N
         jScrollPane1.setViewportView(tablaReporte);
 

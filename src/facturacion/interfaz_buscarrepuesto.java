@@ -10,13 +10,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ANDRES
  */
-public final class interfaz_buscararticulos extends javax.swing.JInternalFrame {
+public final class interfaz_buscarrepuesto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form interfaz_buscararticulos
      */
     private Object[][] datostabla; 
-    public interfaz_buscararticulos() {
+    public interfaz_buscarrepuesto() {
         initComponents();
         mostrar_tabla();
     }
@@ -24,8 +24,8 @@ public final class interfaz_buscararticulos extends javax.swing.JInternalFrame {
     public void mostrar_tabla(){
         control_articulos ctr;       
         ctr = new control_articulos();
-        String[] columnas = {"Codigo_articulo","Descripcion","Precio_venta","Precio_costo","stock","Tipo_de_articulo","Proveedor", "Fecha_ingreso"};
-        datostabla = ctr.consulta_articulos();
+        String[] columnas = {"Codigo Repuesto","Descripcion","Precio Venta","Stock", "Fecha Ingreso","Proveedor"};
+        datostabla = ctr.consulta_repuestos();
         DefaultTableModel datos = new DefaultTableModel(datostabla,columnas);
         jTable1.setModel(datos);
     }

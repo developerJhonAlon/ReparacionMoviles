@@ -65,6 +65,7 @@ public class interfaz_consultarM extends javax.swing.JInternalFrame {
 
             }
         ));
+        tablaMantenimiento.setEnabled(false);
         jScrollPane1.setViewportView(tablaMantenimiento);
 
         jLabel1.setText("Ingrese numero de documento del cliente");

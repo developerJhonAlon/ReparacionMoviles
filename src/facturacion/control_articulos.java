@@ -38,9 +38,26 @@ public class control_articulos {
         
     }
     
+    public boolean ingresar_repuesto(String id, String descripcion, double precioventa, int stock, String fechaingreso, String codprov )
+    {               
+        
+            String datos[] = {id,descripcion,Double.toString(precioventa),Integer.toString(stock),fechaingreso, codprov};           
+            return sensql.insertar(datos, "insert into repuesto(id_repuesto, descripcion, precio_venta, cantidad, fecha_ingreso, cod_nodocumento ) values(?,?,?,?,?,?)");
+                                  
+        
+    }
+    
+    
+    
     public Object[][] consulta_articulos(){
         String[] columnas={"id_articulo","descripcion","precio_venta","precio_costo","stock","descripcion_articulo","Nombre_comercial","fecha_ingreso"};
         Object[][] datos = sensql.GetTabla(columnas, "articulo", "select id_articulo,descripcion,articulo.precio_venta,precio_costo,stock,descripcion_articulo,Nombre_comercial,fecha_ingreso from articulo,proveedor,tipo_articulo where id_tipoarticulo=cod_tipo_articulo and No_documento=cod_proveedor;");
+        return datos;
+    }
+    
+    public Object[][] consulta_repuestos(){
+        String[] columnas={"id_repuesto","descripcion","precio_venta","cantidad","fecha_ingreso","cod_nodocumento"};
+        Object[][] datos = sensql.GetTabla(columnas, "repuesto", "select id_repuesto,descripcion,precio_venta,cantidad,fecha_ingreso,cod_nodocumento from repuesto,proveedor where  No_documento=cod_nodocumento;");
         return datos;
     }
     

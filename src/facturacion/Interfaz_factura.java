@@ -158,6 +158,7 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         Reg_articulo.setText("Registrar detalle");

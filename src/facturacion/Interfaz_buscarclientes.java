@@ -62,6 +62,7 @@ public class Interfaz_buscarclientes extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Salir");
