@@ -1,5 +1,6 @@
 package facturacion;
 
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -56,6 +57,7 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Registrar clientes");
 
+        regclientejButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         regclientejButton1.setText("Registrar");
         regclientejButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +65,7 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
+        cancelclijButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cancelclijButton2.setText("Cancelar");
         cancelclijButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,6 +73,7 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
+        salirclijButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         salirclijButton3.setText("Salir");
         salirclijButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,30 +81,52 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
+        docclientejTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         docclientejTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 docclientejTextField1ActionPerformed(evt);
             }
         });
+        docclientejTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                docclientejTextField1KeyTyped(evt);
+            }
+        });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Documento");
 
+        nomclientejTextField2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         nomclientejTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nomclientejTextField2ActionPerformed(evt);
             }
         });
+        nomclientejTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomclientejTextField2KeyTyped(evt);
+            }
+        });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Nombres");
 
+        apellclientejTextField3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         apellclientejTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 apellclientejTextField3ActionPerformed(evt);
             }
         });
+        apellclientejTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                apellclientejTextField3KeyTyped(evt);
+            }
+        });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Apellidos");
 
+        combo_tipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         combo_tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combo_tipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,20 +134,26 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Tipo de documento");
 
+        ciudad_combo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         ciudad_combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Ciudad");
 
+        dirclientejTextField4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         dirclientejTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dirclientejTextField4ActionPerformed(evt);
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Direccion");
 
+        nuevojButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         nuevojButton1.setText(" Nuevo registro");
         nuevojButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +161,15 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Telefono");
+
+        telefonoclientjTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        telefonoclientjTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonoclientjTextField1KeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,16 +179,20 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(regclientejButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(regclientejButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(telefonoclientjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(202, 202, 202)))
                         .addComponent(cancelclijButton2)
                         .addGap(33, 33, 33)
                         .addComponent(salirclijButton3))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(telefonoclientjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -162,13 +206,14 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel7))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ciudad_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(combo_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)
                                     .addComponent(jLabel3)
-                                    .addComponent(apellclientejTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 47, Short.MAX_VALUE)))
+                                    .addComponent(ciudad_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(apellclientejTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -202,7 +247,7 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(telefonoclientjTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelclijButton2)
                     .addComponent(salirclijButton3)
@@ -362,6 +407,42 @@ public final class Interfaz_Clientes extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_combo_tipoActionPerformed
+
+    private void docclientejTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_docclientejTextField1KeyTyped
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_docclientejTextField1KeyTyped
+
+    private void nomclientejTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomclientejTextField2KeyTyped
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if(!(Character.isLetter(vChar)|| Character.isWhitespace(vChar))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_nomclientejTextField2KeyTyped
+
+    private void apellclientejTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellclientejTextField3KeyTyped
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if(!(Character.isLetter(vChar)|| Character.isWhitespace(vChar))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_apellclientejTextField3KeyTyped
+
+    private void telefonoclientjTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoclientjTextField1KeyTyped
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_telefonoclientjTextField1KeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellclientejTextField3;

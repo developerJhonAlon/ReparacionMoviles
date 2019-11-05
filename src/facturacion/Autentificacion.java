@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class Autentificacion extends javax.swing.JFrame {
 
+    public final static Integer USER_ADMINISTRADOR = 1;
+    public final static Integer USER_OTHER = 2;
+    
     /** Creates new form Autentificacion */
     control_existencias ctr = new control_existencias();
     public Autentificacion() {
@@ -93,13 +96,24 @@ public class Autentificacion extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        if(ctr.existe_usuario(txtUsuario.getText(),txtPassword.getText())){
-            this.dispose();
-            new Interfaz_principal().setVisible(true);
-        }else{
-             JOptionPane.showMessageDialog(null,"El usuario no existe, debe registrarlo","Mensaje",JOptionPane.QUESTION_MESSAGE); 
+        try {
+            
+            if (ctr.existe_usuario(txtUsuario.getText(),txtPassword.getText())) {
+                
+                Integer tipoUser = Integer.parseInt(ctr.tipo_user(txtUsuario.getText(), txtPassword.getText()));
+                 
+                this.dispose();
+                Interfaz_principal interfaz_principal = new Interfaz_principal(tipoUser);
+                interfaz_principal.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "El usuario no existe, debe registrarlo", "Mensaje", JOptionPane.QUESTION_MESSAGE);
+            }
+
+        } catch (Exception ex) {
+           
         }
-  
+
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**

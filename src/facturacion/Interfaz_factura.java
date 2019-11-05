@@ -4,6 +4,7 @@
  */
 package facturacion;
 
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,10 +22,11 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
      * Creates new form Interfaz_factura
      */
     control_existencias con;
-    private Object [][] datostabla;
+    private Object[][] datostabla;
+
     public Interfaz_factura(control_existencias con) {
         initComponents();
-        
+
         fecha_fact.setEnabled(false);
         num_factura.setEnabled(false);
         cliente_factura.setEnabled(false);
@@ -40,34 +42,32 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
         Reg_articulo.setEnabled(false);
         imprimir_bt.setEnabled(false);
         total_factura.setEnabled(false);
-        
-        
+
         this.con = con;
-        
-        cliente_factura.setText( con.ingresa_nombre_Cliente() );
-        
+
+        cliente_factura.setText(con.ingresa_nombre_Cliente());
+
         apell_cli.setText(con.ingresa_apellidos_Cliente());
-        
-        num_factura.setText(con.GenerarNumeroFactura());  
-        
+
+        num_factura.setText(con.GenerarNumeroFactura());
+
         Date hoy = new Date();
-        fecha_fact.setText( hoy.getDate()+"/"+(hoy.getMonth()+1) +"/"+(hoy.getYear()+1900) );
-        
-        String[] campos = {"id_articulo","descripcion"};
-        List<OpcionGenerica> idarticulo = con.combox("articulo",campos);
-        combo_articulos.removeAllItems();  
+        fecha_fact.setText(hoy.getDate() + "/" + (hoy.getMonth() + 1) + "/" + (hoy.getYear() + 1900));
+
+        String[] campos = {"id_articulo", "descripcion"};
+        List<OpcionGenerica> idarticulo = con.combox("articulo", campos);
+        combo_articulos.removeAllItems();
         for (OpcionGenerica idarticulo1 : idarticulo) {
             combo_articulos.addItem(idarticulo1);
         }
-        
-        String[] campos1 = {"id_formapago","Descripcion_formapago"};
-        List<OpcionGenerica> formapago = con.combox("forma_de_pago",campos1);
+
+        String[] campos1 = {"id_formapago", "Descripcion_formapago"};
+        List<OpcionGenerica> formapago = con.combox("forma_de_pago", campos1);
         combo_formapago.removeAllItems();
         for (OpcionGenerica formapago1 : formapago) {
             combo_formapago.addItem(formapago1);
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,8 +82,6 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
         cliente_factura = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         num_factura = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        vend_fact = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         fecha_fact = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -119,12 +117,11 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Generar factura");
+        setEnabled(false);
 
         jLabel1.setText("Nombre cliente");
 
         jLabel2.setText("Num factura");
-
-        jLabel3.setText("Vendedor");
 
         jLabel4.setText("Forma pago");
 
@@ -146,6 +143,12 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
         jLabel9.setText("stock");
 
         jLabel10.setText("Total articulos");
+
+        Total_art.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                Total_artKeyTyped(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -196,15 +199,38 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cant_artKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cant_artKeyTyped(evt);
+            }
         });
 
         combo_formapago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        desc_art.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                desc_artKeyTyped(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setText("Descuento");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel14.setText("IVA");
+
+        iva_art.setEnabled(false);
+        iva_art.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                iva_artKeyTyped(evt);
+            }
+        });
+
+        total_factura.setEnabled(false);
+        total_factura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                total_facturaKeyTyped(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setText("Total factura");
@@ -261,8 +287,7 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel5))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -271,9 +296,8 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(preciu_unid, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(vend_fact, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(fecha_fact, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(fecha_fact, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(combo_formapago, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(reg_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -337,13 +361,9 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
                         .addGap(2, 2, 2)
                         .addComponent(reg_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(apell_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(vend_fact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(apell_cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -367,8 +387,8 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(iva_art, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(iva_art, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(total_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,21 +409,21 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void reg_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_facturaActionPerformed
-   
+
         OpcionGenerica tipoPago = (OpcionGenerica) combo_formapago.getSelectedItem();
-        
-        con.registrar_factura(num_factura.getText(),vend_fact.getText(),fecha_fact.getText(),String.valueOf(tipoPago.getId()));
+
+        con.registrar_factura(num_factura.getText(), "", fecha_fact.getText(), String.valueOf(tipoPago.getId()));
         cant_art.setEnabled(true);
-        iva_art.setEnabled(true);
+        
         desc_art.setEnabled(true);
         Total_art.setEnabled(true);
         combo_articulos.setEnabled(true);
         Reg_articulo.setEnabled(true);
-        total_factura.setEnabled(true);
+        
         imprimir_bt.setEnabled(true);
         reg_factura.setEnabled(false);
         combo_formapago.setEnabled(false);
-        vend_fact.setEnabled(false);
+        
     }//GEN-LAST:event_reg_facturaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -411,105 +431,84 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void combo_articulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_articulosActionPerformed
-     if(combo_articulos.getSelectedItem()!=null )
-     {
-            
-        OpcionGenerica opcion = (OpcionGenerica)combo_articulos.getSelectedItem();
-        Object[][] datos = con.datos_articulo(String.valueOf(opcion.getId()));
-        articulo_venta.setText(datos[0][0].toString());
-        preciu_unid.setText(datos[0][1].toString());
-        stock_art.setText(datos[0][2].toString());
-        cant_art.setText("0");
-        Total_art.setText("0");
-        desc_art.setText("0");
-            
-           
-        
-            
-        }        
+        if (combo_articulos.getSelectedItem() != null) {
+
+            OpcionGenerica opcion = (OpcionGenerica) combo_articulos.getSelectedItem();
+            Object[][] datos = con.datos_articulo(String.valueOf(opcion.getId()));
+            articulo_venta.setText(datos[0][0].toString());
+            preciu_unid.setText(datos[0][1].toString());
+            stock_art.setText(datos[0][2].toString());
+            cant_art.setText("0");
+            Total_art.setText("0");
+            desc_art.setText("0");
+
+        }
     }//GEN-LAST:event_combo_articulosActionPerformed
-              
-        
-        
-        
+
+
     private void cant_artActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cant_artActionPerformed
-     
+
     }//GEN-LAST:event_cant_artActionPerformed
 
     private void cant_artKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cant_artKeyReleased
-        double suma;      
+        double suma;
         double descuento = Double.parseDouble(desc_art.getText());
         double precio = Double.parseDouble(preciu_unid.getText());
-        int cant = Integer.parseInt( cant_art.getText() );
-        double desc = descuento/100;
+        int cant = Integer.parseInt(cant_art.getText());
+        double desc = descuento / 100;
         double porcent;
-        if (descuento == 0)
-        {
-        suma = precio*cant ;
-        }
-        else
-        {
-        porcent = precio*desc;
-        suma = (precio-porcent)*cant ;
+        if (descuento == 0) {
+            suma = precio * cant;
+        } else {
+            porcent = precio * desc;
+            suma = (precio - porcent) * cant;
         }
         Total_art.setText(Double.toString(suma));
-        
+
     }//GEN-LAST:event_cant_artKeyReleased
 
     private void Reg_articuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reg_articuloActionPerformed
         int c = Integer.parseInt(stock_art.getText());
         int b = Integer.parseInt(cant_art.getText());
-                
-        if(!cant_art.getText().equals("0") )
-        {
-            if (c > b)
-            {            
-                OpcionGenerica articulo = (OpcionGenerica)combo_articulos.getSelectedItem();
-                if( con.registrar_producto(num_factura.getText(),String.valueOf(articulo.getId()) ,cant_art.getText(),Total_art.getText()))
-                {
+
+        if (!cant_art.getText().equals("0")) {
+            if (c > b) {
+                OpcionGenerica articulo = (OpcionGenerica) combo_articulos.getSelectedItem();
+                if (con.registrar_producto(num_factura.getText(), String.valueOf(articulo.getId()), cant_art.getText(), Total_art.getText())) {
                     JOptionPane.showMessageDialog(this, "El articulo se registro con exito");
                     cant_art.setText("0");
-                    Total_art.setText("0");                
+                    Total_art.setText("0");
                     desc_art.setText("");
-                }
-                else
-                {
+                } else {
                     JOptionPane.showMessageDialog(this, "Error al registrar el articulo");
                 }
-            }
-            else
-            {
+            } else {
                 JOptionPane.showMessageDialog(this, "El stock del articulo no soporta la venta por favor actualize en stock");
             }
-        }
-            else
-            {
+        } else {
             JOptionPane.showMessageDialog(this, "La cantidad no es valida");
-            }
-        
-        String[] columnas = {"Numero_factura","Codigo articulo","Descripcion","Cantidad","Total"};
+        }
+
+        String[] columnas = {"Numero_factura", "Codigo articulo", "Descripcion", "Cantidad", "Total"};
         datostabla = con.datos_detallefactura(num_factura.getText());
-        DefaultTableModel datosta = new DefaultTableModel(datostabla,columnas);
+        DefaultTableModel datosta = new DefaultTableModel(datostabla, columnas);
         jTable1.setModel(datosta);
-        
+
         Double a = con.total_factura(num_factura.getText());
-        
+
         total_factura.setText(a.toString());
         IVA iva = new IVA(Double.parseDouble(total_factura.getText()));
         iva_art.setText(iva.calcular_iva().toString());
-        
+
     }//GEN-LAST:event_Reg_articuloActionPerformed
 
     private void imprimir_btActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimir_btActionPerformed
-    if(!total_factura.getText().equals("0") )
-        {
-            
-            
-            if( con.update_factura(num_factura.getText(),total_factura.getText(),iva_art.getText()))
-            {
+        if (!total_factura.getText().equals("0")) {
+
+            if (con.update_factura(num_factura.getText(), total_factura.getText(), iva_art.getText())) {
                 JOptionPane.showMessageDialog(this, "Se registro la venta");
                 total_factura.setText("0");
-                iva_art.setText("0");  
+                iva_art.setText("0");
                 cant_art.setEnabled(false);
                 iva_art.setEnabled(false);
                 desc_art.setEnabled(false);
@@ -518,19 +517,64 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
                 Reg_articulo.setEnabled(false);
                 imprimir_bt.setEnabled(false);
                 total_factura.setEnabled(false);
-                
-            }
-            else
-            {
+
+            } else {
                 JOptionPane.showMessageDialog(this, "Error al registrar la venta");
             }
-            }
-            
-            else
-            {
+        } else {
             JOptionPane.showMessageDialog(this, "El total no es valido");
-            }
+        }
     }//GEN-LAST:event_imprimir_btActionPerformed
+
+    private void cant_artKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cant_artKeyTyped
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cant_artKeyTyped
+
+    private void desc_artKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_desc_artKeyTyped
+        // TODO add your handling code here:
+         char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_desc_artKeyTyped
+
+    private void Total_artKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Total_artKeyTyped
+        // TODO add your handling code here:
+         char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_Total_artKeyTyped
+
+    private void iva_artKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_iva_artKeyTyped
+        // TODO add your handling code here:
+         char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_iva_artKeyTyped
+
+    private void total_facturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_total_facturaKeyTyped
+        // TODO add your handling code here:
+         char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_total_facturaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Reg_articulo;
@@ -554,7 +598,6 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -568,6 +611,5 @@ public class Interfaz_factura extends javax.swing.JInternalFrame {
     private javax.swing.JButton reg_factura;
     private javax.swing.JTextField stock_art;
     private javax.swing.JTextField total_factura;
-    private javax.swing.JTextField vend_fact;
     // End of variables declaration//GEN-END:variables
 }

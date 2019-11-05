@@ -4,6 +4,7 @@
  */
 package facturacion;
 
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -348,6 +349,11 @@ control_existencias cc = new control_existencias();
                 documentoproveedorjTextField9ActionPerformed(evt);
             }
         });
+        documentoproveedorjTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                documentoproveedorjTextField9KeyTyped(evt);
+            }
+        });
 
         jLabel14.setText("Nombre comercial");
 
@@ -364,10 +370,20 @@ control_existencias cc = new control_existencias();
                 nomproveedorjTextField9ActionPerformed(evt);
             }
         });
+        nomproveedorjTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomproveedorjTextField9KeyTyped(evt);
+            }
+        });
 
         apellproveedorjTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 apellproveedorjTextField9ActionPerformed(evt);
+            }
+        });
+        apellproveedorjTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                apellproveedorjTextField9KeyTyped(evt);
             }
         });
 
@@ -416,6 +432,11 @@ control_existencias cc = new control_existencias();
         telefonoprovjTextField9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefonoprovjTextField9ActionPerformed(evt);
+            }
+        });
+        telefonoprovjTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonoprovjTextField9KeyTyped(evt);
             }
         });
 
@@ -511,7 +532,7 @@ control_existencias cc = new control_existencias();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomproveedorjTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ciudad_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jLabel20))
@@ -528,14 +549,14 @@ control_existencias cc = new control_existencias();
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 195, Short.MAX_VALUE)
+                    .addGap(0, 199, Short.MAX_VALUE)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 195, Short.MAX_VALUE)))
+                    .addGap(0, 199, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 195, Short.MAX_VALUE)
+                    .addGap(0, 199, Short.MAX_VALUE)
                     .addComponent(jInternalFrame2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 195, Short.MAX_VALUE)))
+                    .addGap(0, 199, Short.MAX_VALUE)))
         );
 
         pack();
@@ -606,36 +627,30 @@ public void limpiar()
     }//GEN-LAST:event_salirprovjButton7ActionPerformed
     
     private void regproveedorjButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regproveedorjButton9ActionPerformed
-    String docu,nom,ape, nom_com,dir,ciu,tipo,tel,a; 
-        
+        String docu, nom, ape, nom_com, dir, ciu, tipo, tel, a;
+
         docu = documentoproveedorjTextField9.getText();
-        OpcionGenerica opcion = (OpcionGenerica)combo_tipo.getSelectedItem();
+        OpcionGenerica opcion = (OpcionGenerica) combo_tipo.getSelectedItem();
         tipo = String.valueOf(opcion.getId());
         nom_com = nomcomercialjTextField10.getText();
         nom = nomproveedorjTextField9.getText();
-        ape = apellproveedorjTextField9.getText(); 
+        ape = apellproveedorjTextField9.getText();
         dir = dirproveedorjTextField9.getText();
-        OpcionGenerica opcion1 = (OpcionGenerica)ciudad_combo.getSelectedItem();
-        ciu =  String.valueOf(opcion1.getId());
+        OpcionGenerica opcion1 = (OpcionGenerica) ciudad_combo.getSelectedItem();
+        ciu = String.valueOf(opcion1.getId());
         tel = telefonoprovjTextField9.getText();
-        
-        control_proveedor prov = new control_proveedor(docu, tipo, nom, ape,nom_com, dir, ciu, tel);
-        if (!docu.equals("") && !nom_com.equals("") && !nom.equals("") && !ape.equals("") && !dir.equals("") && !tel.equals("") )
-        {
-        if(prov.ingresar_proveedor())
-        {
-        JOptionPane.showMessageDialog(null,"El proveedor se registro con exito","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-        limpiar();
-        bloquear_cajas();
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null,"Error al registar el proveedor ","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-        }
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "Hay campos obligatorios");  
+
+        control_proveedor prov = new control_proveedor(docu, tipo, nom, ape, nom_com, dir, ciu, tel);
+        if (!docu.equals("") && !nom_com.equals("") && !nom.equals("") && !ape.equals("") && !dir.equals("") && !tel.equals("")) {
+            if (prov.ingresar_proveedor()) {
+                JOptionPane.showMessageDialog(null, "El proveedor se registro con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+                bloquear_cajas();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al registar el proveedor ", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Hay campos obligatorios");
         }
         
        
@@ -670,6 +685,43 @@ public void limpiar()
     private void telefonoprovjTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoprovjTextField9ActionPerformed
    telefonoprovjTextField9.transferFocus();
     }//GEN-LAST:event_telefonoprovjTextField9ActionPerformed
+
+    private void documentoproveedorjTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_documentoproveedorjTextField9KeyTyped
+        // TODO add your handling code here:
+         char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_documentoproveedorjTextField9KeyTyped
+
+    private void nomproveedorjTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomproveedorjTextField9KeyTyped
+        // TODO add your handling code here:
+         char vChar = evt.getKeyChar();
+        if(!(Character.isLetter(vChar)|| Character.isWhitespace(vChar))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_nomproveedorjTextField9KeyTyped
+
+    private void apellproveedorjTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellproveedorjTextField9KeyTyped
+        // TODO add your handling code here:
+         char vChar = evt.getKeyChar();
+        if(!(Character.isLetter(vChar)|| Character.isWhitespace(vChar))){
+            evt.consume();
+        }
+    }//GEN-LAST:event_apellproveedorjTextField9KeyTyped
+
+    private void telefonoprovjTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoprovjTextField9KeyTyped
+        // TODO add your handling code here:
+        
+          char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_telefonoprovjTextField9KeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellproveedorjTextField9;

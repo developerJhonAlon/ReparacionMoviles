@@ -85,6 +85,12 @@ public class control_existencias {
 
     }
 
+    public String tipo_user(String usuario, String password) {
+        String result;
+        result = sen.datos_string("tipo", " select tipo from usuario where nombre_user='" + usuario + "' and clave_user='" + password + "';");
+        return result;
+    }
+    
     public String ingresa_nombre_Cliente() {
         String result;
         result = sen.datos_string("nombres", "select nombres from cliente where Documento='" + this.Documento + "';");
@@ -118,6 +124,19 @@ public class control_existencias {
         return sen.insertar(datos,
                 "insert into mantenimiento(id_mantenimiento,cod_cliente,nombre_empleado,fecha,cod_formapago,equipo,falla,observacion,precio,estado) values(?,?,?,?,?,?,?,?,?,?);");
     }
+    
+    public boolean registrar_fallo(String numMantenimiento, String fechaMante, String codFormaPago, String observacion,String precio, String estado) {
+        String[] datos = {numMantenimiento, Documento, fechaMante, codFormaPago, observacion, precio, estado};
+        return sen.insertar(datos,
+                "insert into mantenimiento(id_mantenimiento,cod_cliente,fecha,cod_formapago,observacion,precio,estado) values(?,?,?,?,?,?,?);");
+    }
+    
+    public boolean actualizar_fallo(String numMantenimiento, String codFormaPago, String observacion,String precio, String estado) {
+        String[] datos = {codFormaPago, observacion, precio, estado, numMantenimiento};
+        return sen.insertar(datos,
+                "update mantenimiento set cod_formapago = ?, observacion = ?, precio = ?, estado = ? where id_mantenimiento = ?;");
+    }
+
 
     public boolean update_mantenimiento(String numMantenimiento, String nombreEmpleado, String fechaMante, String codFormaPago, String equipo, String falla, String observacion,
             String precio, String estado) {
@@ -125,16 +144,30 @@ public class control_existencias {
         return sen.insertar(datos,
                 "update mantenimiento set nombre_empleado=?, fecha=?, cod_formapago=?, equipo=?, falla=?, observacion=?, precio=?, estado=? where id_mantenimiento=?;");
     }
+    
+    
 
     public boolean update_factura(String factura, String total, String iva) {
         String campos[] = {total, iva, factura};
         return sen.insertar(campos, "update factura set total_factura=?, IVA=? where Nnm_factura=?;");
 
     }
+    
+    public boolean update_mantenimiento(String mantenimiento, String total, String iva) {
+        String campos[] = {total,iva, mantenimiento};
+        return sen.insertar(campos, "update mantenimiento set total = ?, iva = ? where id_mantenimiento = ?;");
+
+    }
 
     public boolean update_stock(String stock, String id_articulo) {
         String campos[] = {stock, id_articulo};
         return sen.insertar(campos, "update articulo set stock=stock+? where id_articulo=?;");
+
+    }
+    
+     public boolean update_stock_repuesto(String stock, String id_repuesto) {
+        String campos[] = {stock, id_repuesto};
+        return sen.insertar(campos, "update repuesto set cantidad=cantidad+? where id_repuesto=?;");
 
     }
 
@@ -145,6 +178,15 @@ public class control_existencias {
     public Object[][] datos_articulo(String id_articulo) {
         String[] columnas = {"descripcion", "precio_venta", "stock"};
         Object[][] resultado = sen.GetTabla(columnas, "articulo", "select descripcion, precio_venta, stock from articulo where id_articulo='" + id_articulo + "';");
+        return resultado;
+    }
+    
+    
+    
+    
+    public Object[][] datos_repuesto(String id_repuesto) {
+        String[] columnas = {"descripcion", "precio_venta", "cantidad"};
+        Object[][] resultado = sen.GetTabla(columnas, "articulo", "select descripcion, precio_venta, cantidad from repuesto where id_repuesto='" + id_repuesto + "';");
         return resultado;
     }
 
@@ -160,6 +202,13 @@ public class control_existencias {
         return resultado;
     }
 
+    public Object[][] datos_detallemantenimiento(String numero_mantenimiento) {
+        String[] columnas = {"id_repuesto", "descripcion", "cantidad","precio_venta", "total"};
+        Object[][] resultado = sen.GetTabla(columnas, "detalle_mantenimiento where id_mantenimiento='" + numero_mantenimiento + "';", "select * from detalle_mantenimiento as m,repuesto as r where r.id_repuesto=m.id_repuesto and id_mantenimiento='" + numero_mantenimiento + "';");
+        return resultado;
+    }
+    
+    
     public Object[][] consulta_factura(String id) {
         String[] columnas = {"Nnm_factura", "Nombres", "Apellidos", "Nombre_empleado", "Fecha_facturacion", "Descripcion_formapago", "total_factura", "IVA"};
         Object[][] resultado = sen.GetTabla(columnas, "cliente", "select * from cliente, factura, forma_de_pago where documento=cod_cliente and cod_formapago=id_formapago and documento='" + id + "';");
@@ -205,7 +254,7 @@ public class control_existencias {
                 if (fecha != null && !fecha.isEmpty()) {
                     where.append(" and fecha = '").append(fecha).append("'");
                 }
-                String columnas[] = {"id_mantenimiento","cod_cliente","nombre_empleado","fecha","precio"};
+                String columnas[] = {"id_mantenimiento","cod_cliente","fecha","total","observacion"};
                 return sen.GetTabla(columnas, "mantenimiento", "select * from mantenimiento where 1=1 " + where.toString());
             } else {
                 if (cedula != null && !cedula.isEmpty()) {
@@ -225,14 +274,15 @@ public class control_existencias {
 
     public Object[][] consultaMantenimientoPorCliente(String id) {
 
-        String[] columnas = {"id_mantenimiento", "Nombres", "Apellidos", "nombre_empleado", "fecha", "Descripcion_formapago", "equipo", "falla", "observacion", "precio", "estado"};
+      
+        String[] columnas = {"id_mantenimiento", "Nombres", "Apellidos","fecha", "Descripcion_formapago","observacion", "total", "estado"};
         Object[][] resultado = sen.GetTabla(columnas, "mantenimiento", "select * from cliente, mantenimiento, forma_de_pago where documento=cod_cliente and cod_formapago=id_formapago and documento='" + id + "';");
         return resultado;
     }
 
     public Object[][] consultaMantenimientoPorFactura() {
 
-        String[] columnas = {"id_mantenimiento", "Nombres", "Apellidos", "nombre_empleado", "fecha", "Descripcion_formapago", "equipo", "falla", "observacion", "precio", "estado"};
+        String[] columnas = {"id_mantenimiento", "Nombres", "Apellidos", "fecha", "Descripcion_formapago", "observacion", "precio", "estado"};
         Object[][] resultado = sen.GetTabla(columnas, "mantenimiento", "select * from cliente, mantenimiento, forma_de_pago where Documento=cod_cliente and cod_formapago=id_formapago and id_mantenimiento='" + numero_factura + "';");
         return resultado;
     }
@@ -253,8 +303,24 @@ public class control_existencias {
             return false;
         }
     }
+    
+     public boolean registrar_repuesto(String Nnm_factura, String id_repuesto, String cantidad, String total) {
+        String[] datos = {Nnm_factura, id_repuesto, cantidad, total};
+
+        String[] datosP = {cantidad, id_repuesto};
+        if (sen.insertar(datosP, "update repuesto set cantidad=cantidad-? where id_repuesto=?;")) {
+            return sen.insertar(datos, "insert into detalle_mantenimiento(id_mantenimiento,id_repuesto,cantidad,total) values(?,?,?,?);");
+        } else {
+            return false;
+        }
+    }
 
     public Double total_factura(String numfact) {
         return sen.datos_totalfactura("total", "select round( sum( total ) , 2 ) as total from detalle_factura where cod_factura='" + numfact + "';");
     }
+    
+    public Double total_mantenimiento(String nummant) {
+        return sen.datos_totalfactura("total", "select round( sum( total ) , 2 ) as total from detalle_mantenimiento where id_mantenimiento='" + nummant + "';");
+    }
 }
+

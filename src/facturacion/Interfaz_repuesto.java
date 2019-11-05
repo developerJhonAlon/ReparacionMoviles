@@ -4,6 +4,7 @@
  */
 package facturacion;
 
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,7 +17,9 @@ import sun.util.calendar.BaseCalendar;
  * @author ANDRES
  */
 public class Interfaz_repuesto extends javax.swing.JInternalFrame {
-control_existencias con = new control_existencias();
+
+    control_existencias con = new control_existencias();
+
     /**
      * Creates new form Interfaz_articulo
      */
@@ -25,12 +28,12 @@ control_existencias con = new control_existencias();
         limpiar();
         bloquear_cajas();
         this.calendario.setEnabled(false);
-        
-        String[] campos = {"id_tipoarticulo","descripcion_articulo"};
-        List<OpcionGenerica> tipo = con.combox("tipo_articulo",campos);
-                
-        String[] campos1 = {"cod_tipo_documento","No_documento"};
-        List<OpcionGenerica> prov = con.combox("proveedor",campos1);
+
+        String[] campos = {"id_tipoarticulo", "descripcion_articulo"};
+        List<OpcionGenerica> tipo = con.combox("tipo_articulo", campos);
+
+        String[] campos1 = {"cod_tipo_documento", "No_documento"};
+        List<OpcionGenerica> prov = con.combox("proveedor", campos1);
         comboproveedor.removeAllItems();
         for (OpcionGenerica prov1 : prov) {
             comboproveedor.addItem(prov1);
@@ -80,11 +83,21 @@ control_existencias con = new control_existencias();
                 pre_ventaActionPerformed(evt);
             }
         });
+        pre_venta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pre_ventaKeyTyped(evt);
+            }
+        });
 
         cant_prod.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         cant_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cant_prodActionPerformed(evt);
+            }
+        });
+        cant_prod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cant_prodKeyTyped(evt);
             }
         });
 
@@ -190,9 +203,9 @@ control_existencias con = new control_existencias();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descripcion_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,122 +235,131 @@ control_existencias con = new control_existencias();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public void limpiar()
-    {
-       
-       descripcion_prod.setText("");
-       pre_venta.setText("");
-       
-       cant_prod.setText("");
-      
-       comboproveedor.setName("");
-       calendario.setName("");
+public void limpiar() {
+
+        descripcion_prod.setText("");
+        pre_venta.setText("");
+
+        cant_prod.setText("");
+
+        comboproveedor.setName("");
+        calendario.setName("");
     }
-    
-    public void  bloquear_cajas()
-    {
-       
-       descripcion_prod.setEnabled(false);
-       pre_venta.setEnabled(false);
-       
-       cant_prod.setEnabled(false);       
-      
-       comboproveedor.setEnabled(false);
-       nuevoreg.setEnabled(true);
-       registrar.setEnabled(false);
-       cancelar.setEnabled(false);
-       this.calendario.getCalendarButton().setEnabled(false);
-       
-       
+
+    public void bloquear_cajas() {
+
+        descripcion_prod.setEnabled(false);
+        pre_venta.setEnabled(false);
+
+        cant_prod.setEnabled(false);
+
+        comboproveedor.setEnabled(false);
+        nuevoreg.setEnabled(true);
+        registrar.setEnabled(false);
+        cancelar.setEnabled(false);
+        this.calendario.getCalendarButton().setEnabled(false);
+
     }
-    public void  desbloquear()
-    {
-       
-       descripcion_prod.setEnabled(true);
-       pre_venta.setEnabled(true);
-      
-       cant_prod.setEnabled(true);       
-       
-       comboproveedor.setEnabled(true);
-       nuevoreg.setEnabled(false);
-       registrar.setEnabled(true);
-       cancelar.setEnabled(true);
-       this.calendario.getCalendarButton().setEnabled(true);
-       
+
+    public void desbloquear() {
+
+        descripcion_prod.setEnabled(true);
+        pre_venta.setEnabled(true);
+
+        cant_prod.setEnabled(true);
+
+        comboproveedor.setEnabled(true);
+        nuevoreg.setEnabled(false);
+        registrar.setEnabled(true);
+        cancelar.setEnabled(true);
+        this.calendario.getCalendarButton().setEnabled(true);
+
     }
     private void comboproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboproveedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboproveedorActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-    bloquear_cajas();
-    limpiar();
+        bloquear_cajas();
+        limpiar();
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void nuevoregActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoregActionPerformed
-    desbloquear();
-    descripcion_prod.requestFocus();
+        desbloquear();
+        descripcion_prod.requestFocus();
     }//GEN-LAST:event_nuevoregActionPerformed
 
     private void descripcion_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcion_prodActionPerformed
-    descripcion_prod.transferFocus();
+        descripcion_prod.transferFocus();
     }//GEN-LAST:event_descripcion_prodActionPerformed
 
     private void pre_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pre_ventaActionPerformed
-    pre_venta.transferFocus();
+        pre_venta.transferFocus();
     }//GEN-LAST:event_pre_ventaActionPerformed
 
     private void cant_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cant_prodActionPerformed
-    cant_prod.transferFocus();
+        cant_prod.transferFocus();
     }//GEN-LAST:event_cant_prodActionPerformed
-    public static String convertTostring(Date Date)
-        {
-            DateFormat df;
-            String fech = null;
-            df = new SimpleDateFormat("yyyy-MM-d");
-            fech = df.format(Date);
-            return fech;
-        }
+    public static String convertTostring(Date Date) {
+        DateFormat df;
+        String fech = null;
+        df = new SimpleDateFormat("yyyy-MM-d");
+        fech = df.format(Date);
+        return fech;
+    }
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
-        String des, tipo,prov,fecha;       
-        int preve, precos,sto;
+        String des, tipo, prov, fecha;
+        int preve, precos, sto;
         double preve2;
         des = descripcion_prod.getText();
-       
-        
+
         fecha = convertTostring(calendario.getDate());
         preve2 = Double.valueOf(pre_venta.getText());
-        
+
         sto = Integer.parseInt(cant_prod.getText());
         OpcionGenerica opcion1 = (OpcionGenerica) comboproveedor.getSelectedItem();
-        
+
         prov = opcion1.getDescripcion();
-        
+
         control_articulos ctrl = new control_articulos();
-        if(!des.equals(""))
-         {          
-             
-        if(ctrl.ingresar_repuesto(null,des,preve2,sto,fecha,prov))
-         {            
-        JOptionPane.showMessageDialog(null,"El repuesto se registro con exito");
-        limpiar();
-        bloquear_cajas();
-         }
-        else
-         {
-            JOptionPane.showMessageDialog(null,"Error al registrar el repuesto","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-         }
-         }
-         else
-         {
-             JOptionPane.showMessageDialog(this, "Hay campos obligatorios");  
-         }
-       
+        if (!des.equals("")) {
+
+            if (ctrl.ingresar_repuesto(null, des, preve2, sto, fecha, prov)) {
+                JOptionPane.showMessageDialog(null, "El repuesto se registro con exito");
+                limpiar();
+                bloquear_cajas();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al registrar el repuesto", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Hay campos obligatorios");
+        }
+
     }//GEN-LAST:event_registrarActionPerformed
+
+    private void cant_prodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cant_prodKeyTyped
+        // TODO add your handling code here:
+          char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cant_prodKeyTyped
+
+    private void pre_ventaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pre_ventaKeyTyped
+        // TODO add your handling code here:
+          char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pre_ventaKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser calendario;

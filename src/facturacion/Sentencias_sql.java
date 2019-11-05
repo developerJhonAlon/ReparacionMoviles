@@ -35,9 +35,11 @@ public class Sentencias_sql {
             ps.close();
             estado = true;
          }catch(Exception e){
+             System.out.println(e.getMessage());
              if(e.getMessage().toUpperCase().contains("PRIMARY")){
                   System.out.println("Ya existe un registro con ese ID");
              }
+             
            
       }
        return estado;

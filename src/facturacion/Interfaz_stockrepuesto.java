@@ -4,7 +4,6 @@
  */
 package facturacion;
 
-import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -12,20 +11,22 @@ import javax.swing.JOptionPane;
  *
  * @author ANDRES
  */
-public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
-     control_existencias ctrl = new control_existencias();
+public class Interfaz_stockrepuesto extends javax.swing.JInternalFrame {
+
+    control_existencias ctrl = new control_existencias();
+
     /**
      * Creates new form Interfaz_actualizarstock
      */
-    public Interfaz_actualizarstock() {
+    public Interfaz_stockrepuesto() {
         initComponents();
         nuevo_stock.setEnabled(false);
         desc_articulo.setEnabled(false);
-        
-        String[] campos = {"id_articulo","descripcion"};
-        List<OpcionGenerica> idarticulo = ctrl.combox("articulo",campos);
+
+        String[] campos = {"id_repuesto", "id_repuesto"};
+        List<OpcionGenerica> idarticulo = ctrl.combox("repuesto", campos);
         combo_articulo.removeAllItems();
-         for (OpcionGenerica idarticulo1 : idarticulo) {
+        for (OpcionGenerica idarticulo1 : idarticulo) {
             combo_articulo.addItem(idarticulo1);
         }
     }
@@ -50,8 +51,9 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         registrar_nuevo = new javax.swing.JTextField();
 
-        setTitle("Actualizar stock");
+        setTitle("Actualizar Stock Repuestos");
 
+        combo_articulo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         combo_articulo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         combo_articulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,12 +61,20 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Id_articulo");
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel1.setText("Codigo Repuesto :");
 
-        jLabel2.setText("Descricion articulo");
+        desc_articulo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jLabel3.setText("Stock actual");
+        nuevo_stock.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setText("Descripcion Repuesto :");
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setText("Stock actual :");
+
+        jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +82,7 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setText("Registrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,11 +90,13 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setText("Registr nuevo stock");
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel4.setText("Registar nuevo stock :");
 
-        registrar_nuevo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                registrar_nuevoKeyTyped(evt);
+        registrar_nuevo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        registrar_nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrar_nuevoActionPerformed(evt);
             }
         });
 
@@ -92,19 +105,18 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4))
-                                .addGap(47, 47, 47))
+                                .addComponent(jLabel1)
+                                .addGap(70, 70, 70))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(desc_articulo)
@@ -121,27 +133,23 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(combo_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(desc_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nuevo_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(0, 51, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(registrar_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
-                .addGap(16, 16, 16)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(combo_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(desc_articulo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nuevo_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registrar_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -152,57 +160,42 @@ public class Interfaz_actualizarstock extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void combo_articuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_articuloActionPerformed
-    if(combo_articulo.getSelectedItem()!=null )
-     {
-            
+        if (combo_articulo.getSelectedItem() != null) {
+
             OpcionGenerica opcion = (OpcionGenerica) combo_articulo.getSelectedItem();
-            Object[][] datos = ctrl.datos_articulo(String.valueOf(opcion.getId()));
+            Object[][] datos = ctrl.datos_repuesto(String.valueOf(opcion.getId()));
             desc_articulo.setText(datos[0][0].toString());
-            nuevo_stock.setText(datos[0][2].toString());    
-           
-                    
-        }        
+            nuevo_stock.setText(datos[0][2].toString());
+
+        }
     }//GEN-LAST:event_combo_articuloActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    if(!registrar_nuevo.getText().equals("0") && !registrar_nuevo.getText().equals(""))
-        {
-            
+        if (!registrar_nuevo.getText().equals("0") && !registrar_nuevo.getText().equals("")) {
+
             OpcionGenerica opcion = (OpcionGenerica) combo_articulo.getSelectedItem();
             String op = String.valueOf(opcion.getId());
-            if( ctrl.update_stock(registrar_nuevo.getText(),op))
-            {
+            if (ctrl.update_stock_repuesto(registrar_nuevo.getText(), op)) {
                 JOptionPane.showMessageDialog(this, "Se actualizo correctamente el stock");
-                registrar_nuevo.setText("0");     
-                Object[][] datos = ctrl.datos_articulo(op);
-                nuevo_stock.setText(datos[0][2].toString()); 
-                
-            }
-            else
-            {
+                registrar_nuevo.setText("0");
+                Object[][] datos = ctrl.datos_repuesto(op);
+                nuevo_stock.setText(datos[0][2].toString());
+
+            } else {
                 JOptionPane.showMessageDialog(this, "Error al actualizar");
             }
-            }
-            
-            else
-            {
+        } else {
             JOptionPane.showMessageDialog(this, "La cantidad a ingresar no es valida");
-            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void registrar_nuevoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_registrar_nuevoKeyTyped
+    private void registrar_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrar_nuevoActionPerformed
         // TODO add your handling code here:
-        char vChar = evt.getKeyChar();
-        if (!(Character.isDigit(vChar)
-                || (vChar == KeyEvent.VK_BACK_SPACE)
-                || (vChar == KeyEvent.VK_DELETE))) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_registrar_nuevoKeyTyped
+    }//GEN-LAST:event_registrar_nuevoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox combo_articulo;

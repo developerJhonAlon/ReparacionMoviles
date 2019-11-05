@@ -4,6 +4,8 @@
  */
 package facturacion;
 
+import static facturacion.Interfaz_Clientes.valida;
+import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,6 +61,11 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
         });
 
         txtCliente.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtClienteKeyTyped(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jButton2.setText("Salir");
@@ -241,6 +248,45 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
         
     }
 
+    
+    public static boolean valida(String x) {
+        int suma = 0;
+        if (x.length() == 9) {
+            System.out.println("Ingrese su cedula de 10 digitos");
+            return false;
+        } else {
+            int a[] = new int[x.length() / 2];
+            int b[] = new int[(x.length() / 2)];
+            int c = 0;
+            int d = 1;
+            for (int i = 0; i < x.length() / 2; i++) {
+                a[i] = Integer.parseInt(String.valueOf(x.charAt(c)));
+                c = c + 2;
+                if (i < (x.length() / 2) - 1) {
+                    b[i] = Integer.parseInt(String.valueOf(x.charAt(d)));
+                    d = d + 2;
+                }
+            }
+
+            for (int i = 0; i < a.length; i++) {
+                a[i] = a[i] * 2;
+                if (a[i] > 9) {
+                    a[i] = a[i] - 9;
+                }
+                suma = suma + a[i] + b[i];
+            }
+            int aux = suma / 10;
+            int dec = (aux + 1) * 10;
+            if ((dec - suma) == Integer.parseInt(String.valueOf(x.charAt(x.length() - 1)))) {
+                return true;
+            } else if (suma % 10 == 0 && x.charAt(x.length() - 1) == '0') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
@@ -248,7 +294,10 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
         String cedula = "";
         String fecha = "";
         String[] columnas;
-        if (chCantidad.isSelected()) {
+        
+       
+        if(valida(txtCliente.getText())){
+             if (chCantidad.isSelected()) {
             cantidadProcesos();
         } else {
             try {
@@ -265,9 +314,9 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
                     columnas = new String[5];
                     columnas[0] = "No Mantenimiento";
                     columnas[1] = "Cedula Cliente";
-                    columnas[2] = "Nombre Empleado";
-                    columnas[3] = "Fecha de entrega";
-                    columnas[4] = "Precio de la reparacion";
+                    columnas[2] = "Fecha de entrega";
+                    columnas[3] = "Total";
+                    columnas[4] = "Observacion";
 
                 } else {
                     columnas = new String[5];
@@ -278,10 +327,20 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
                     columnas[4] = "Total Pagado";
                 }
                 datostabla = ctr.consultaReporte(tipo, cedula, fecha);
+                if(datostabla.length<0){
+                     JOptionPane.showMessageDialog(null, "No se encontro registro", "Datos vacios", JOptionPane.ERROR_MESSAGE);
+                }
                 DefaultTableModel datostcli = new DefaultTableModel(datostabla, columnas);
                 tablaReporte.setModel(datostcli);
             }
         }
+            
+        }else{
+             JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        
+       
    
 
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -297,6 +356,16 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
     private void chCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chCantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chCantidadActionPerformed
+
+    private void txtClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyTyped
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtClienteKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

@@ -6,7 +6,8 @@ package facturacion;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import facturacion.Autentificacion;
+import java.util.Objects;
 /**
  *
  * @author ANDRES
@@ -17,8 +18,20 @@ public class Interfaz_principal extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz_principal
      */
-    public Interfaz_principal() {
+    public Interfaz_principal(Integer user) {
         initComponents();
+        
+        if(Objects.equals(user, Autentificacion.USER_OTHER)){
+            this.jMenu1.setEnabled(false);
+            this.jMenu2.setEnabled(false);
+            this.jMenu5.setEnabled(false);
+            this.jMenu6.setEnabled(false);
+            
+        }
+    }
+
+    private Interfaz_principal() {
+        
     }
 
     /**
@@ -445,6 +458,9 @@ public class Interfaz_principal extends javax.swing.JFrame {
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         // TODO add your handling code here:
+        Interfaz_stockrepuesto stock = new Interfaz_stockrepuesto();
+        jDesktopPane1.add(stock);
+        stock.show();
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**

@@ -4,6 +4,7 @@
  */
 package facturacion;
 
+import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -86,6 +87,18 @@ public class Interfaz_devoluciones extends javax.swing.JInternalFrame {
         aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceptarActionPerformed(evt);
+            }
+        });
+
+        cantidadjTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cantidadjTextField4KeyTyped(evt);
+            }
+        });
+
+        cod_artjTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cod_artjTextField1KeyTyped(evt);
             }
         });
 
@@ -263,6 +276,26 @@ public class Interfaz_devoluciones extends javax.swing.JInternalFrame {
     
     
     }//GEN-LAST:event_aceptarActionPerformed
+
+    private void cod_artjTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cod_artjTextField1KeyTyped
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cod_artjTextField1KeyTyped
+
+    private void cantidadjTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadjTextField4KeyTyped
+        // TODO add your handling code here:
+        char vChar = evt.getKeyChar();
+        if (!(Character.isDigit(vChar)
+                || (vChar == KeyEvent.VK_BACK_SPACE)
+                || (vChar == KeyEvent.VK_DELETE))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cantidadjTextField4KeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;
