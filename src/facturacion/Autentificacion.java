@@ -57,7 +57,6 @@ public class Autentificacion extends javax.swing.JFrame {
         txtUsuario.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
         txtPassword.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        txtPassword.setText("jPasswordField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,10 +69,10 @@ public class Autentificacion extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtUsuario)
+                    .addComponent(btnIngresar)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                     .addComponent(txtPassword))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
