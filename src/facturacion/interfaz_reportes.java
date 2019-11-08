@@ -47,8 +47,11 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox();
-        comCalendario = new com.toedter.calendar.JDateChooser();
+        fechaInicio = new com.toedter.calendar.JDateChooser();
         chCantidad = new javax.swing.JCheckBox();
+        fechaFin = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setTitle("Reportes");
 
@@ -94,13 +97,13 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tablaReporte);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel1.setText("Número de documento del cliente:");
+        jLabel1.setText("Tipo :");
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Filtros:");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel3.setText("Fecha de proceso:");
+        jLabel3.setText("Fecha Inicial :");
 
         cmbTipo.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Venta", "Mantenimiento" }));
@@ -111,7 +114,7 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
             }
         });
 
-        comCalendario.setDateFormatString("d/M/yyyy");
+        fechaInicio.setDateFormatString("dd/MM/yyyy");
 
         chCantidad.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         chCantidad.setText("Cantidad de Procesos");
@@ -120,6 +123,14 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
                 chCantidadActionPerformed(evt);
             }
         });
+
+        fechaFin.setDateFormatString("dd/MM/yyyy");
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel4.setText("Fecha Final :");
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel5.setText("Número de documento del cliente :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,51 +149,67 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(123, 123, 123))))
             .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel2)
+                .addGap(129, 129, 129)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabel2)))
-                .addGap(104, 104, 104)
+                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
+                    .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(114, 114, 114)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(chCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(66, 66, 66)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(chCantidad))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                            .addComponent(comCalendario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(44, 44, 44)
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(chCantidad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,7 +224,9 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
     public static String convertTostring(Date Date) {
         DateFormat df;
         String fech = null;
-        df = new SimpleDateFormat("d/M/yyyy");
+        //2019-06-22, ####.##
+        //df = new SimpleDateFormat("dd-MM-yyyy");
+        df = new SimpleDateFormat("yyyy-MM-dd");
         fech = df.format(Date);
         return fech;
     }
@@ -209,9 +238,14 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
         
         tipo = cmbTipo.getSelectedItem().toString();
         cedula = txtCliente.getText();
-        fecha = (comCalendario.getDate()!=null)?convertTostring(comCalendario.getDate()):"";
+        fecha = (fechaInicio.getDate()!=null)?convertTostring(fechaInicio.getDate()):"";
         if(tipo.equals("Venta")){
             if(!cedula.isEmpty() && fecha.isEmpty()){
+                if(!cedula.isEmpty()){
+                    if(!valida(cedula)){
+                       JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
                 datostabla = ctr.contarFactura(cedula,fecha);
                 String columnas[] = {"Cedula Cliente", "Fecha Ultima venta", "Número de ventas realizados al cliente"};
                 DefaultTableModel datostcli = new DefaultTableModel(datostabla, columnas);
@@ -221,7 +255,7 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
                 String columnas[] = {"Ultimo cliente que realizo una compra a la fecha seleccionada", "Fecha de venta", "Número de ventas realizados en la fecha seleccionada"};
                 DefaultTableModel datostcli = new DefaultTableModel(datostabla, columnas);
                 tablaReporte.setModel(datostcli);
-            }else{
+            }else{//Vacios
                 datostabla = ctr.contarFactura(cedula,fecha);
                 String columnas[] = {"Cedula Cliente", "Fecha Ultima venta", "Número de ventas realizados al cliente"};
                 DefaultTableModel datostcli = new DefaultTableModel(datostabla, columnas);
@@ -229,6 +263,11 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
             }
         }else{
             if(!cedula.isEmpty() && fecha.isEmpty()){
+                if(!cedula.isEmpty()){
+                    if(!valida(cedula)){
+                       JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
                 datostabla = ctr.contarMantenimiento(cedula,fecha);
                 String columnas[] = {"Cedula Cliente", "Fecha Ultima matenimiento", "Número de mantenimientos realizados al cliente"};
                 DefaultTableModel datostcli = new DefaultTableModel(datostabla, columnas);
@@ -292,21 +331,21 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
 
         String tipo = "";
         String cedula = "";
-        String fecha = "";
-        String[] columnas;
-        
-       
-        if(valida(txtCliente.getText())){
-             if (chCantidad.isSelected()) {
+        String desde = "";
+        String hasta = ""
+;        String[] columnas;
+        if (chCantidad.isSelected()) {
             cantidadProcesos();
         } else {
             try {
                 tipo = cmbTipo.getSelectedItem().toString();
                 cedula = txtCliente.getText();
-                fecha = convertTostring(comCalendario.getDate());
+                desde = convertTostring(fechaInicio.getDate());
+                hasta = convertTostring(fechaFin.getDate());
 
             } catch (NullPointerException e) {
-                fecha = "";
+                desde = "";
+                hasta = "";
 
             } finally {
                 //System.out.println("tipo: " + tipo + " cedula: " + cedula + " fecha: " + fecha);
@@ -319,28 +358,32 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
                     columnas[4] = "Observacion";
 
                 } else {
-                    columnas = new String[5];
+                    columnas = new String[4];
                     columnas[0] = "No Factura";
                     columnas[1] = "Cedula Cliente";
-                    columnas[2] = "Nombre Empleado";
-                    columnas[3] = "Fecha de compra";
-                    columnas[4] = "Total Pagado";
+                   
+                    columnas[2] = "Fecha de compra";
+                    columnas[3] = "Total Pagado";
                 }
-                datostabla = ctr.consultaReporte(tipo, cedula, fecha);
-                if(datostabla.length<0){
-                     JOptionPane.showMessageDialog(null, "No se encontro registro", "Datos vacios", JOptionPane.ERROR_MESSAGE);
-                }
-                DefaultTableModel datostcli = new DefaultTableModel(datostabla, columnas);
-                tablaReporte.setModel(datostcli);
+                if(!cedula.isEmpty()){
+                    if(!valida(cedula)){
+                       JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                }               
+                datostabla = ctr.consultaReporte(tipo, cedula, desde, hasta);
+//                System.out.print("error capa presentacion: "+datostabla[0].length);
+//                if(datostabla[0][0].equals("")){
+//                   JOptionPane.showMessageDialog(null, "No se encontro registro", "Datos vacios", JOptionPane.ERROR_MESSAGE);
+//                   System.out.print("error capa presentacion: "+datostabla.length);
+//                 }                
+                 DefaultTableModel datostcli = new DefaultTableModel(datostabla, columnas);
+                 tablaReporte.setModel(datostcli);
+                    
+              
+                    
             }
-        }
-            
-        }else{
-             JOptionPane.showMessageDialog(null, "Cedula Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
-            
-        }
-        
-       
+        }    
    
 
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -371,11 +414,14 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JCheckBox chCantidad;
     private javax.swing.JComboBox cmbTipo;
-    private com.toedter.calendar.JDateChooser comCalendario;
+    private com.toedter.calendar.JDateChooser fechaFin;
+    private com.toedter.calendar.JDateChooser fechaInicio;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tablaReporte;

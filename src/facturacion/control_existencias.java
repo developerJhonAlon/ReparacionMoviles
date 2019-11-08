@@ -222,7 +222,7 @@ public class control_existencias {
             return sen.GetTabla(columnas, "factura", "SELECT cod_cliente,Fecha_facturacion,count(cod_cliente) as 'cont' FROM factura where cod_cliente='"+cedula+"' GROUP BY cod_cliente;");
         }else if(cedula.isEmpty() && !fecha.isEmpty()){
             return sen.GetTabla(columnas, "factura", "SELECT cod_cliente,Fecha_facturacion,count(Fecha_facturacion) as 'cont' FROM factura where Fecha_facturacion='"+fecha+"' GROUP BY Fecha_facturacion;");
-        }else{
+        }else{//Vacios
             return sen.GetTabla(columnas, "factura", "SELECT cod_cliente,Fecha_facturacion,count(cod_cliente) as 'cont' FROM factura GROUP BY cod_cliente;");
         }
         
@@ -259,11 +259,12 @@ public class control_existencias {
             } else {
                 if (cedula != null && !cedula.isEmpty()) {
                     where.append(" and cod_cliente = '").append(cedula).append("'");
+//                    where.append(" and cod_cliente = Documento");
                 }
                 if (fecha != null && !fecha.isEmpty()) {
                     where.append(" and Fecha_facturacion = '").append(fecha).append("'");
                 }
-                String columnas[] = {"Nnm_factura","cod_cliente","Nombre_empleado","Fecha_facturacion","total_factura"};
+                String columnas[] = {"Nnm_factura","cod_cliente","Fecha_facturacion","total_factura"};
                 return sen.GetTabla(columnas, "factura", "select * from factura where 1=1 " + where.toString());
             }
         }catch(Exception e){
@@ -271,6 +272,49 @@ public class control_existencias {
             return null;
         }      
     }
+    
+    public Object[][] consultaReporte(String tipo, String cedula, String desde, String hasta) {
+
+        try {
+            
+            StringBuilder where = new StringBuilder();
+            if (tipo.equals("Mantenimiento")) {
+                if((desde != null && !desde.isEmpty()) && (hasta != null && !hasta.isEmpty())){
+                    where.append(" and STR_TO_DATE(fecha, '%d/%m/%Y') between '").append(desde).append("'").append(" and '").append(hasta).append("'");
+                }
+                if (cedula != null && !cedula.isEmpty()) {
+                    where.append(" and cod_cliente = '").append(cedula).append("'");
+                }
+                if (desde != null && !desde.isEmpty()) {
+                    if(hasta.isEmpty()){
+                        where.append(" and fecha = '").append(desde).append("'");
+                    }
+                    
+                }
+                String columnas[] = {"id_mantenimiento","cod_cliente","fecha","total","observacion"};
+                return sen.GetTabla(columnas, "mantenimiento", "select * from mantenimiento where 1=1 " + where.toString());
+            } else {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                if((desde != null && !desde.isEmpty()) && (hasta != null && !hasta.isEmpty())){
+                    where.append(" and STR_TO_DATE(Fecha_facturacion, '%d/%m/%Y') between '").append(desde).append("'").append(" and '").append(hasta).append("'");
+                }
+                if (cedula != null && !cedula.isEmpty()) {
+                    where.append(" and cod_cliente = '").append(cedula).append("'");
+//                    where.append(" and cod_cliente = Documento");
+                }
+                if (desde != null && !desde.isEmpty()) {
+                    if (hasta.isEmpty()) {
+                        where.append(" and Fecha_facturacion = '").append(desde).append("'");
+                    }
+                }
+                String columnas[] = {"Nnm_factura","cod_cliente","Fecha_facturacion","total_factura"};
+                return sen.GetTabla(columnas, "factura", "select * from factura where 1=1 " + where.toString());
+            }
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }      
+    }
+    
 
     public Object[][] consultaMantenimientoPorCliente(String id) {
 

@@ -46,7 +46,7 @@ public class Sentencias_sql {
    }
     
    
-     public Object [][] GetTabla(String colName[], String tabla, String sql){
+   public Object [][] GetTabla(String colName[], String tabla, String sql){
       int registros = 0;
       
       try{
@@ -56,7 +56,7 @@ public class Sentencias_sql {
          registros = res.getInt("total");
          res.close();
       }catch(SQLException e){
-         System.out.println(e);
+          System.out.println("Capa1: " + e.getMessage());
       }
 
     Object[][] data = new String[registros][colName.length];
@@ -75,7 +75,7 @@ public class Sentencias_sql {
          }
          res.close();
           }catch(SQLException e){
-         System.out.println(e);
+          System.out.println("Capa2" + e.getMessage());
     }
     return data;
  }
