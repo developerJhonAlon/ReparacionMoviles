@@ -43,7 +43,10 @@ public class Interfaz_mantenimiento extends javax.swing.JInternalFrame {
 
             apell_cli.setText(con.ingresa_apellidos_Cliente());
 
-            num_factura.setText(con.GenerarNumeroFactura());
+            int generador = Integer.valueOf(con.GenerarNumeroMantenimiento2()[0][0].toString()) + 1;
+        
+            num_factura.setText(String.valueOf(generador));
+           // num_factura.setText(con.GenerarNumeroFactura());
 
             Date hoy = new Date();
             fecha_fact.setText(hoy.getDate() + "/" + (hoy.getMonth() + 1) + "/" + (hoy.getYear() + 1900));
@@ -678,7 +681,7 @@ public class Interfaz_mantenimiento extends javax.swing.JInternalFrame {
 //                 JOptionPane.showMessageDialog(this, "Error al registrar los datos del mantenimiento");
 //            }
 //        } else {  
-        if (con.registrar_fallo(num_factura.getText(), fecha_fact.getText(), String.valueOf(tipoPago.getId()), txtObservacion.getText(), precio.getText(), cmbEstado.getSelectedItem().toString())) {
+        if (con.registrar_fallo(null, fecha_fact.getText(), String.valueOf(tipoPago.getId()), txtObservacion.getText(), precio.getText(), cmbEstado.getSelectedItem().toString())) {
             
             Double totalReparar;
             totalReparar = obtenerNumero(total_factura.getText()) + obtenerNumero(precio.getText());

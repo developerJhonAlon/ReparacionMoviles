@@ -112,6 +112,16 @@ public class control_existencias {
         numero_factura = codigo;
         return codigo;
     }
+    
+    public Object[][] GenerarNumeroFactura2() {
+        String[] columnas = {"cod"};
+        return sen.GetTabla(columnas, "factura", "SELECT max(Nnm_factura) as 'cod' FROM factura");
+    }
+    
+     public Object[][] GenerarNumeroMantenimiento2() {
+        String[] columnas = {"cod"};
+        return sen.GetTabla(columnas, "mantenimiento", "SELECT max(id_mantenimiento) as 'cod' FROM mantenimiento");
+    }
 
     public void registrar_factura(String Nnm_factura, String Nombre_empleado, String fecha_facturacion, String cod_formapago) {
         String[] datos = {Nnm_factura, Documento, Nombre_empleado, fecha_facturacion, cod_formapago};
