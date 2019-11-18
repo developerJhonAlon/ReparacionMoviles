@@ -301,23 +301,24 @@ public class control_existencias {
                     }
                     
                 }
-                String columnas[] = {"id_mantenimiento","cod_cliente","fecha","total","observacion"};
-                return sen.GetTabla(columnas, "mantenimiento", "select * from mantenimiento where 1=1 " + where.toString());
+                where.append(" and cod_cliente = Documento");
+                String columnas[] = {"id_mantenimiento","cod_cliente","Nombres","Apellidos","fecha","total","observacion"};
+                return sen.GetTabla(columnas, "mantenimiento", "select * from mantenimiento,cliente where 1=1 " + where.toString());
             } else {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
                 if((desde != null && !desde.isEmpty()) && (hasta != null && !hasta.isEmpty())){
                     where.append(" and STR_TO_DATE(Fecha_facturacion, '%d/%m/%Y') between '").append(desde).append("'").append(" and '").append(hasta).append("'");
                 }
                 if (cedula != null && !cedula.isEmpty()) {
                     where.append(" and cod_cliente = '").append(cedula).append("'");
-//                    where.append(" and cod_cliente = Documento");
                 }
                 if (desde != null && !desde.isEmpty()) {
                     if (hasta.isEmpty()) {
                         where.append(" and Fecha_facturacion = '").append(desde).append("'");
                     }
                 }
-                String columnas[] = {"Nnm_factura","cod_cliente","Fecha_facturacion","total_factura"};
-                return sen.GetTabla(columnas, "factura", "select * from factura where 1=1 " + where.toString());
+                where.append(" and cod_cliente = Documento");
+                String columnas[] = {"Nnm_factura","cod_cliente","Nombres","Apellidos","Fecha_facturacion","total_factura"};
+                return sen.GetTabla(columnas, "factura", "select * from factura,cliente where 1=1 " + where.toString());
             }
         }catch(Exception e){
             System.out.println(e);

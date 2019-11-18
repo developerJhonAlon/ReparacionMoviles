@@ -350,20 +350,23 @@ public class interfaz_reportes extends javax.swing.JInternalFrame {
             } finally {
                 //System.out.println("tipo: " + tipo + " cedula: " + cedula + " fecha: " + fecha);
                 if (cmbTipo.getSelectedItem().equals("Mantenimiento")) {
-                    columnas = new String[5];
+                    columnas = new String[7];
                     columnas[0] = "No Mantenimiento";
                     columnas[1] = "Cedula Cliente";
-                    columnas[2] = "Fecha de entrega";
-                    columnas[3] = "Total";
-                    columnas[4] = "Observacion";
+                    columnas[2] = "Nombres Cliente";
+                    columnas[3] = "Apellidos Cliente";
+                    columnas[4] = "Fecha de entrega";
+                    columnas[5] = "Total";
+                    columnas[6] = "Observacion";
 
                 } else {
-                    columnas = new String[4];
+                    columnas = new String[6];
                     columnas[0] = "No Factura";
                     columnas[1] = "Cedula Cliente";
-                   
-                    columnas[2] = "Fecha de compra";
-                    columnas[3] = "Total Pagado";
+                    columnas[2] = "Nombres Cliente";
+                    columnas[3] = "Apellidos Cliente";
+                    columnas[4] = "Fecha de compra";
+                    columnas[5] = "Total Pagado";
                 }
                 if(!cedula.isEmpty()){
                     if(!valida(cedula)){
